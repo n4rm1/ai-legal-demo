@@ -1,6 +1,8 @@
-# 🧠 AI Legal Assistant
+# 🧠 AI Legal Assistant 
 
 An intelligent legal contract analyzer that extracts key information from legal documents using AI. Built with Next.js and OpenAI's GPT-4o model.
+
+> 🇪🇸 **[Versión en Español disponible abajo](#-asistente-legal-con-ia)** | 🇺🇸 **English version above**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/n4rm1/ai-legal-demo)
 
