@@ -176,6 +176,104 @@ Firmado en Ciudad de México.
 - Environment variables are used for API keys
 - No contract data is stored permanently
 - All processing happens in real-time
+- Sensitive contract data is not logged or cached
+- HTTPS encryption for all API communications
+
+## 🏗️ Technical Architecture & Design Decisions
+
+### Complete Technical Flow
+```
+User Input → Frontend (React/Next.js) → API Route (/api/extract) → AI Processing (OpenAI GPT-4o) → Structured Response → Dashboard Display
+```
+
+**Components:**
+- **Frontend**: Next.js 15 with App Router, shadcn/ui components
+- **Backend**: Next.js API routes for serverless processing
+- **AI Integration**: OpenAI GPT-4o via AI SDK with structured generation
+- **Storage**: No persistent storage (real-time processing only)
+- **Validation**: Zod schema for guaranteed data structure
+
+### AI Integration Strategy
+
+**Model Choice**: OpenAI GPT-4o selected for:
+- Superior multilingual capabilities (Spanish/English)
+- Excellent structured output generation
+- Legal document comprehension
+- Consistent API reliability
+
+**Prompt Engineering**:
+```typescript
+// Explicit multilingual support with structured output
+const prompt = `
+  Analyze the following legal contract and extract key information. 
+  The contract may be written in Spanish or English - handle both languages accurately.
+  Always return extracted information in English for consistency.
+  
+  Contract text: ${contractText}
+`;
+```
+
+**Data Accuracy Assurance**:
+- Zod schema validation ensures output structure
+- AI SDK's `generateObject` prevents JSON parsing errors
+- Explicit prompt instructions for consistency
+- Type-safe TypeScript interfaces
+- Error handling for invalid responses
+
+### Dashboard & Visualization
+
+**UI Design Philosophy**:
+- Dark theme professional interface
+- Card-based layout for easy scanning
+- Color-coded sections (parties, dates, penalties)
+- Responsive design for mobile/desktop
+- Clear typography and iconography
+
+**Data Presentation**:
+- **Signing Parties**: Badge components for easy identification
+- **Dates & Duration**: Grid layout with calendar icons
+- **Contract Purpose**: Full-text display with emphasis
+- **Penalties**: Bulleted list with warning icons
+- **Key Clauses**: Organized list format
+
+### Security Measures
+
+**Sensitive Data Protection**:
+- No database storage (ephemeral processing)
+- Environment variables for API keys
+- No client-side API key exposure
+- Real-time processing without logging
+- HTTPS-only communication
+
+### Development Approach: AI vs Manual
+
+**AI-Assisted Development**:
+- ✅ UI component generation (v0.dev)
+- ✅ Code scaffolding and boilerplate
+- ✅ Documentation enhancement
+- ✅ API integration patterns
+
+**Manual Development**:
+- ✅ Architecture decisions and flow design
+- ✅ Prompt engineering and testing
+- ✅ Error handling and edge cases
+- ✅ Type safety and validation logic
+- ✅ Security implementation
+- ✅ Performance optimization
+
+**Reasoning**: Critical business logic, security, and architecture require human oversight, while UI and boilerplate benefit from AI acceleration.
+
+## 🎯 Technical Test Compliance
+
+This project demonstrates:
+- **Complete technical flow** from input to visualization
+- **AI integration** with OpenAI for legal document processing
+- **Structured data extraction** using advanced prompt engineering
+- **Modern web technologies** (Next.js, TypeScript, shadcn/ui)
+- **Security best practices** for sensitive legal data
+- **Bilingual support** for Spanish and English contracts
+- **Real-time processing** without persistent storage
+- **Professional dashboard** interface for business use
 
 ## 🤝 Contributing
 
