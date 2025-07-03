@@ -1,14 +1,14 @@
-# 🧠 AI Legal Assistant 
+# �� AI Legal Assistant
 
 An intelligent legal contract analyzer that extracts key information from legal documents using AI. Built with Next.js and OpenAI's GPT-4o model.
 
-> 🇪🇸 **[Versión en Español disponible abajo](#-asistente-legal-con-ia)** | 🇺🇸 **English version above**
+> 🇪🇸 **[Versión en Español disponible abajo](#-asistente-legal-con-ia-1)** | 🇺🇸 **English version above**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/n4rm1/ai-legal-demo)
 
 ## 🌐 Live Demo
 
-> **Note**: https://ai-legal-demo.vercel.app/
+> **Live Demo**: https://ai-legal-demo.vercel.app/
 
 ## ✨ Features
 
@@ -265,14 +265,14 @@ const prompt = `
 
 **Reasoning**: Critical business logic, security, and architecture require human oversight, while UI and boilerplate benefit from AI acceleration.
 
-## 🧪 Parte 5: Prueba Práctica - Implementación Detallada
+## 🧪 Part 5: Practical Implementation - Detailed Breakdown
 
-### 🎯 Demo Funcional Completa
-Este proyecto implementa una **demo funcional completa** (frontend + backend) que simula exactamente cómo usar IA para extraer información de contratos legales.
+### 🎯 Complete Functional Demo
+This project implements a **complete functional demo** (frontend + backend) that demonstrates exactly how to use AI for extracting information from legal contracts.
 
-### 🤖 Cómo Uso IA para Obtener Datos Clave
+### 🤖 How I Use AI to Obtain Key Data
 
-**1. Integración con OpenAI GPT-4o**
+**1. OpenAI GPT-4o Integration**
 ```typescript
 // app/api/extract/route.ts
 const { object } = await generateObject({
@@ -288,7 +288,7 @@ const { object } = await generateObject({
 })
 ```
 
-**2. Extracción Estructurada con Zod**
+**2. Structured Extraction with Zod**
 ```typescript
 const extractionSchema = z.object({
   signingParties: z.array(z.string()).describe("Names of all parties signing the contract"),
@@ -301,17 +301,17 @@ const extractionSchema = z.object({
 })
 ```
 
-### 🔗 Conexión de Lógica IA con la Aplicación
+### 🔗 Connecting AI Logic with the Application
 
-**Frontend → API → IA → Dashboard**
+**Frontend → API → AI → Dashboard**
 
-1. **Frontend (page.tsx)**: Usuario pega texto del contrato
-2. **API Route (/api/extract)**: Procesa el texto con IA
-3. **IA Processing**: GPT-4o extrae datos estructurados
-4. **Dashboard**: Muestra información organizada en tarjetas
+1. **Frontend (page.tsx)**: User pastes contract text
+2. **API Route (/api/extract)**: Processes text with AI
+3. **AI Processing**: GPT-4o extracts structured data
+4. **Dashboard**: Shows organized information in cards
 
 ```typescript
-// Conexión Frontend-Backend
+// Frontend-Backend Connection
 const response = await fetch("/api/extract", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -320,73 +320,73 @@ const response = await fetch("/api/extract", {
 const extractedData = await response.json()
 ```
 
-### 🛠️ Qué Hice Manualmente vs Con IA
+### 🛠️ What I Did Manually vs With AI
 
-#### ✋ **Desarrollo Manual (Control Total)**
-- **Arquitectura del Sistema**: Decidí usar Next.js App Router para simplicidad
-- **Prompt Engineering**: Diseñé el prompt específico para contratos legales bilingües
-- **Validación de Datos**: Implementé Zod schema para garantizar estructura correcta
-- **Manejo de Errores**: Lógica de try/catch y respuestas de error estructuradas
-- **Seguridad**: Variables de entorno, no almacenamiento persistente
-- **Tipos TypeScript**: Interfaces para type safety completa
-- **Lógica de Negocio**: Flujo de procesamiento y transformación de datos
+#### ✋ **Manual Development (Full Control)**
+- **System Architecture**: Decided to use Next.js App Router for simplicity
+- **Prompt Engineering**: Designed specific prompt for bilingual legal contracts
+- **Data Validation**: Implemented Zod schema to guarantee correct structure
+- **Error Handling**: try/catch logic and structured error responses
+- **Security**: Environment variables, no persistent storage
+- **TypeScript Types**: Interfaces for complete type safety
+- **Business Logic**: Processing flow and data transformation
 
-#### 🤖 **Desarrollo Asistido por IA**
-- **UI Components**: Generé el frontend inicial con v0.dev
-- **Componentes shadcn/ui**: Instalación y configuración automática
-- **Código Boilerplate**: Estructura inicial de archivos y imports
-- **Documentación**: Mejoras en README y comentarios
-- **Estilos CSS**: Refinamiento de la interfaz visual
+#### 🤖 **AI-Assisted Development**
+- **UI Components**: Generated initial frontend with v0.dev
+- **shadcn/ui Components**: Automatic installation and configuration
+- **Boilerplate Code**: Initial file structure and imports
+- **Documentation**: README improvements and comments
+- **CSS Styling**: Visual interface refinement
 
-#### 🎯 **Decisiones de Control**
+#### 🎯 **Control Decisions**
 ```typescript
-// MANUAL: Lógica crítica de negocio
+// MANUAL: Critical business logic
 export async function POST(request: Request) {
   try {
     const { contractText } = await request.json()
     
-    // Validación manual
+    // Manual validation
     if (!contractText || typeof contractText !== "string") {
       return Response.json({ error: "Contract text is required" }, { status: 400 })
     }
     
-    // Procesamiento con IA (controlado)
+    // AI processing (controlled)
     const { object } = await generateObject({
       model: openai("gpt-4o"),
-      schema: extractionSchema, // Schema definido manualmente
-      prompt: customPrompt,     // Prompt diseñado manualmente
+      schema: extractionSchema, // Manually defined schema
+      prompt: customPrompt,     // Manually designed prompt
     })
     
     return Response.json(object)
   } catch (error) {
-    // Manejo de errores manual
+    // Manual error handling
     return Response.json({ error: "Failed to extract" }, { status: 500 })
   }
 }
 ```
 
-### 📊 **Demostración Práctica**
+### 📊 **Practical Demonstration**
 
-**Puedes probar la demo con contratos reales:**
-1. Ve a: https://ai-legal-demo.vercel.app/
-2. Pega un contrato en español o inglés
-3. Ve cómo la IA extrae automáticamente:
-   - Partes firmantes
-   - Fechas de inicio/fin
-   - Duración del contrato
-   - Penalizaciones
-   - Propósito del contrato
-   - Cláusulas clave
+**You can test the demo with real contracts:**
+1. Go to: https://ai-legal-demo.vercel.app/
+2. Paste a contract in Spanish or English
+3. See how AI automatically extracts:
+   - Signing parties
+   - Start/end dates
+   - Contract duration
+   - Penalties
+   - Contract purpose
+   - Key clauses
 
-**Contratos de ejemplo incluidos en el README para testing inmediato.**
+**Sample contracts included in README for immediate testing.**
 
-### 🔍 **Repositorio Comentado**
-- **Código fuente**: https://github.com/n4rm1/ai-legal-demo
-- **Commits detallados**: Cada feature con descripción clara
-- **Documentación completa**: README con explicaciones técnicas
-- **Estructura clara**: Archivos organizados por funcionalidad
+### 🔍 **Commented Repository**
+- **Source code**: https://github.com/n4rm1/ai-legal-demo
+- **Detailed commits**: Each feature with clear description
+- **Complete documentation**: README with technical explanations
+- **Clear structure**: Files organized by functionality
 
-**Esta implementación demuestra dominio completo del flujo IA → Aplicación → Usuario para procesamiento de documentos legales.**
+**This implementation demonstrates complete mastery of the AI → Application → User flow for legal document processing.**
 
 ## 🎯 Technical Test Compliance
 
@@ -420,6 +420,14 @@ For questions or issues, please open an issue in the repository.
 **Built with ❤️ using Next.js and OpenAI**
 
 ---
+---
+
+# 🌟 SEPARADOR DE IDIOMAS / LANGUAGE SEPARATOR 🌟
+
+## 🇺🇸 **English version above** | 🇪🇸 **Versión en español abajo**
+
+---
+---
 
 # 🧠 Asistente Legal con IA
 
@@ -429,7 +437,7 @@ Un analizador inteligente de contratos legales que extrae información clave de 
 
 ## 🌐 Demo en Vivo
 
-> **Nota**: https://ai-legal-demo.vercel.app/
+> **Demo en Vivo**: https://ai-legal-demo.vercel.app/
 
 ## ✨ Características
 
