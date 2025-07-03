@@ -6,7 +6,7 @@ An intelligent legal contract analyzer that extracts key information from legal 
 
 ## 🌐 Live Demo
 
-> **Note**: Add your deployment URL here once deployed to Vercel or other hosting platform
+> **Note**: https://ai-legal-demo.vercel.app/
 
 ## ✨ Features
 
@@ -262,6 +262,129 @@ const prompt = `
 - ✅ Performance optimization
 
 **Reasoning**: Critical business logic, security, and architecture require human oversight, while UI and boilerplate benefit from AI acceleration.
+
+## 🧪 Parte 5: Prueba Práctica - Implementación Detallada
+
+### 🎯 Demo Funcional Completa
+Este proyecto implementa una **demo funcional completa** (frontend + backend) que simula exactamente cómo usar IA para extraer información de contratos legales.
+
+### 🤖 Cómo Uso IA para Obtener Datos Clave
+
+**1. Integración con OpenAI GPT-4o**
+```typescript
+// app/api/extract/route.ts
+const { object } = await generateObject({
+  model: openai("gpt-4o"),
+  schema: extractionSchema,
+  prompt: `
+    Analyze the following legal contract and extract key information. 
+    The contract may be written in Spanish or English - handle both languages accurately.
+    Always return extracted information in English for consistency.
+    
+    Contract text: ${contractText}
+  `,
+})
+```
+
+**2. Extracción Estructurada con Zod**
+```typescript
+const extractionSchema = z.object({
+  signingParties: z.array(z.string()).describe("Names of all parties signing the contract"),
+  startDate: z.string().describe("Contract start date or effective date"),
+  endDate: z.string().describe("Contract end date or expiration date"),
+  duration: z.string().describe("Contract duration or term length"),
+  penalties: z.array(z.string()).describe("Penalties, fines, or consequences"),
+  contractPurpose: z.string().describe("Main purpose or objective of the contract"),
+  keyClauses: z.array(z.string()).describe("Important clauses, terms, or conditions"),
+})
+```
+
+### 🔗 Conexión de Lógica IA con la Aplicación
+
+**Frontend → API → IA → Dashboard**
+
+1. **Frontend (page.tsx)**: Usuario pega texto del contrato
+2. **API Route (/api/extract)**: Procesa el texto con IA
+3. **IA Processing**: GPT-4o extrae datos estructurados
+4. **Dashboard**: Muestra información organizada en tarjetas
+
+```typescript
+// Conexión Frontend-Backend
+const response = await fetch("/api/extract", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ contractText }),
+})
+const extractedData = await response.json()
+```
+
+### 🛠️ Qué Hice Manualmente vs Con IA
+
+#### ✋ **Desarrollo Manual (Control Total)**
+- **Arquitectura del Sistema**: Decidí usar Next.js App Router para simplicidad
+- **Prompt Engineering**: Diseñé el prompt específico para contratos legales bilingües
+- **Validación de Datos**: Implementé Zod schema para garantizar estructura correcta
+- **Manejo de Errores**: Lógica de try/catch y respuestas de error estructuradas
+- **Seguridad**: Variables de entorno, no almacenamiento persistente
+- **Tipos TypeScript**: Interfaces para type safety completa
+- **Lógica de Negocio**: Flujo de procesamiento y transformación de datos
+
+#### 🤖 **Desarrollo Asistido por IA**
+- **UI Components**: Generé el frontend inicial con v0.dev
+- **Componentes shadcn/ui**: Instalación y configuración automática
+- **Código Boilerplate**: Estructura inicial de archivos y imports
+- **Documentación**: Mejoras en README y comentarios
+- **Estilos CSS**: Refinamiento de la interfaz visual
+
+#### 🎯 **Decisiones de Control**
+```typescript
+// MANUAL: Lógica crítica de negocio
+export async function POST(request: Request) {
+  try {
+    const { contractText } = await request.json()
+    
+    // Validación manual
+    if (!contractText || typeof contractText !== "string") {
+      return Response.json({ error: "Contract text is required" }, { status: 400 })
+    }
+    
+    // Procesamiento con IA (controlado)
+    const { object } = await generateObject({
+      model: openai("gpt-4o"),
+      schema: extractionSchema, // Schema definido manualmente
+      prompt: customPrompt,     // Prompt diseñado manualmente
+    })
+    
+    return Response.json(object)
+  } catch (error) {
+    // Manejo de errores manual
+    return Response.json({ error: "Failed to extract" }, { status: 500 })
+  }
+}
+```
+
+### 📊 **Demostración Práctica**
+
+**Puedes probar la demo con contratos reales:**
+1. Ve a: https://ai-legal-demo.vercel.app/
+2. Pega un contrato en español o inglés
+3. Ve cómo la IA extrae automáticamente:
+   - Partes firmantes
+   - Fechas de inicio/fin
+   - Duración del contrato
+   - Penalizaciones
+   - Propósito del contrato
+   - Cláusulas clave
+
+**Contratos de ejemplo incluidos en el README para testing inmediato.**
+
+### 🔍 **Repositorio Comentado**
+- **Código fuente**: https://github.com/n4rm1/ai-legal-demo
+- **Commits detallados**: Cada feature con descripción clara
+- **Documentación completa**: README con explicaciones técnicas
+- **Estructura clara**: Archivos organizados por funcionalidad
+
+**Esta implementación demuestra dominio completo del flujo IA → Aplicación → Usuario para procesamiento de documentos legales.**
 
 ## 🎯 Technical Test Compliance
 
